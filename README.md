@@ -26,8 +26,9 @@ mh_y_ksads_ss.xlsx -> mh_y_ksads_ss.xlsx
 
 **Running the code**
 
-Once all downloads have been completed, please navigate the code using the following file:
+Once all downloads have been completed, please upload each of these files to R studio, making sure to not change the names of the files.
+After all the files have been uploaded to the R studio enviroment, please navigate the code using the following file:
   
-      Cleaned Up Gender Dissonance Project Main.R
+      Gender Dissonance Main.R
 
 This file will describe what files can be run from within the main file, and which files should be opened in order to access figures. 
