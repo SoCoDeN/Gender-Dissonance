@@ -1,4 +1,5 @@
 historya3_Bianarized_GD <- historya3
+historya3_Bianarized_GD <- filter(historya3_Bianarized_GD, src_subject_id %in% List_of_include)
 historya3_Bianarized_GD$Gender_Dissonance[historya3_Bianarized_GD$ABS_GD<=1] <- 0
 historya3_Bianarized_GD$Gender_Dissonance[historya3_Bianarized_GD$ABS_GD>1] <-1
 historya3_Bianarized_GD_trans <- filter(historya3_Bianarized_GD, kbi_y_trans_id == "Yes"| kbi_y_trans_id == "Maybe")

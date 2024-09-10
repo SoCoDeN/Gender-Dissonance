@@ -116,14 +116,24 @@ historya3 <- rbind(DFfemaleyear3, DFmaleyear3, fill = TRUE)
 historya4 <- rbind(DFfemaleyear4, DFmaleyear4, fill = TRUE)
 historyatotal <- rbind(DFfemaletotal, DFmaletotal, fill = TRUE)
 
-
+twinslist = filter(LIAM_abcd_y_lt,!is.na(rel_family_id))
+twinslist = subset(twinslist, select=c(src_subject_id,site_id_l, rel_family_id,rel_birth_id))
+historyatotal <-  merge(historyatotal, twinslist, 
+                        by = c("src_subject_id"), all.x = TRUE)
+Truetwins <- liam_gen_y_pihat
+Truetwins <- subset(Truetwins, select = c(src_subject_id,rel_group_id,rel_ingroup_order))
+historyatotal <- merge(historyatotal, Truetwins,by = c("src_subject_id"), all.x = TRUE)
+historyatotal$rel_birth_id <- as.numeric(historyatotal$rel_birth_id)
+historyatotal$istwin <- historyatotal$rel_birth_id %% 10
+historyatotal <- filter(historyatotal, !is.na(rel_birth_id))
 names(historyatotal)[names(historyatotal)=="eventname.x"]<- "eventname"
 historyatotaltest <-  merge(historyatotal, Liam_mh_y_ksads_si, 
                             by = c("src_subject_id","eventname"), all.x = TRUE)
 
+
 historyatotaltest <-  merge(historyatotal, mh_y_ksads_ss, 
                             by = c("src_subject_id","eventname"), all.x = TRUE)
-Historyatotal_sexuality <- merge(historyatotal, )
+
 historyatotaltest$ksads_23_147_t[is.na(historyatotaltest$ksads_23_147_t)]<- 7
 historyatotaltest$ksads_23_148_t[is.na(historyatotaltest$ksads_23_148_t)]<- 7
 historyatotaltest$ksads2_23_905_t[is.na(historyatotaltest$ksads2_23_905_t)]<- 7
@@ -161,10 +171,10 @@ historyatotaltest$ksads2_23_925_t[is.na(historyatotaltest$ksads2_23_925_t)]<- 7
 historyatotaltest$ever_attempt <- (historyatotaltest$ksads_23_822_t==1|historyatotaltest$ksads_23_149_t==1|historyatotaltest$ksads_23_150_t==1|historyatotaltest$ksads2_23_912_t==1|historyatotaltest$ksads2_23_913_t==1|historyatotaltest$ksads2_23_914_t==1|historyatotaltest$ksads2_23_923_t==1|historyatotaltest$ksads2_23_924_t==1|historyatotaltest$ksads2_23_925_t==1)
 
 
-Data_I_need1 <- historyatotal %>% dplyr::select(src_subject_id,eventname, cbcl_scr_syn_internal_r,cbcl_scr_syn_external_r,Gender_Dissonance,Age,truesex,race_ethnicity,kbi_y_trans_id)
+Data_I_need1 <- historyatotal %>% dplyr::select(src_subject_id,eventname, cbcl_scr_syn_internal_r,cbcl_scr_syn_external_r,Gender_Dissonance,Age,truesex,race_ethnicity,kbi_y_trans_id,site_id_l,rel_family_id)
 Data_I_need1 <- na.omit(Data_I_need1)
 ##need to problemsolve here, 
-Data_I_need <- historyatotaltest %>% dplyr::select(src_subject_id,eventname, cbcl_scr_syn_internal_r,cbcl_scr_syn_external_r,Gender_Dissonance,Age,truesex,race_ethnicity,kbi_y_trans_id)
+Data_I_need <- historyatotaltest %>% dplyr::select(src_subject_id,eventname, cbcl_scr_syn_internal_r,cbcl_scr_syn_external_r,Gender_Dissonance,Age,truesex,race_ethnicity,kbi_y_trans_id,site_id_l)
 Data_I_need <- na.omit(Data_I_need)
 Data_I_need$race_ethnicity <- Data_I_need$race_ethnicity
 Data_I_need$eventname[Data_I_need$eventname=="1_year_follow_up_y_arm_1"] <- 1
@@ -187,11 +197,11 @@ Data_I_need$eventname[Data_I_need$eventname=="TRUE"] <- 0
 Data_I_need <- filter(Data_I_need, eventname  != 0 )
 DT_for_melt <- as.data.table(Data_I_need)
 DT_for_melt1 <- as.data.table(Data_I_need1)
-DTL1 <- melt(DT_for_melt1, id.vars=c("src_subject_id","eventname","cbcl_scr_syn_internal_r","cbcl_scr_syn_external_r","Gender_Dissonance","Age","truesex","race_ethnicity","kbi_y_trans_id"))
-DTL <- melt(DT_for_melt, id.vars=c("src_subject_id","eventname","cbcl_scr_syn_internal_r","cbcl_scr_syn_external_r","Gender_Dissonance","Age","truesex","race_ethnicity","kbi_y_trans_id"))
-AHHHH3 <- data.table::dcast(DTL1,src_subject_id~eventname,value.var =c("cbcl_scr_syn_internal_r","cbcl_scr_syn_external_r","Gender_Dissonance","Age","truesex","race_ethnicity","kbi_y_trans_id"))
+DTL1 <- melt(DT_for_melt1, id.vars=c("src_subject_id","eventname","cbcl_scr_syn_internal_r","cbcl_scr_syn_external_r","Gender_Dissonance","Age","truesex","race_ethnicity","kbi_y_trans_id","site_id_l","rel_family_id"))
+DTL <- melt(DT_for_melt, id.vars=c("src_subject_id","eventname","cbcl_scr_syn_internal_r","cbcl_scr_syn_external_r","Gender_Dissonance","Age","truesex","race_ethnicity","kbi_y_trans_id","site_id_l"))
+AHHHH3 <- data.table::dcast(DTL1,src_subject_id~eventname,value.var =c("cbcl_scr_syn_internal_r","cbcl_scr_syn_external_r","Gender_Dissonance","Age","truesex","race_ethnicity","kbi_y_trans_id","site_id_l","rel_family_id"))
 
-AHHHH <- data.table::dcast(DTL,src_subject_id~eventname,value.var =c("cbcl_scr_syn_internal_r","cbcl_scr_syn_external_r","Gender_Dissonance","Age","truesex","race_ethnicity","kbi_y_trans_id"))
+AHHHH <- data.table::dcast(DTL,src_subject_id~eventname,value.var =c("cbcl_scr_syn_internal_r","cbcl_scr_syn_external_r","Gender_Dissonance","Age","truesex","race_ethnicity","kbi_y_trans_id","site_id_l"))
 AHHHH$truesex_1[AHHHH$truesex_1==1]<- 0
 AHHHH$truesex_1[AHHHH$truesex_1==2]<- 1
 AHHHH$truesex_2[AHHHH$truesex_2==1]<- 0
@@ -215,6 +225,10 @@ AHHHHflipped$averaged_FluiditytoT3 <-(abs(AHHHHflipped$Gender_Dissonance_1-AHHHH
 
 AHHHHflipped$EverDiverse <- (AHHHHflipped$kbi_y_trans_id_1 ==1|AHHHHflipped$kbi_y_trans_id_2 ==1|AHHHHflipped$kbi_y_trans_id_3 ==1|AHHHHflipped$kbi_y_trans_id_4 ==1)
 AHHHHflipped$EverDiverse[is.na(AHHHHflipped$EverDiverse)] <- 0
+
+AHHHHflipped$EverDiverseToT3 <- (AHHHHflipped$kbi_y_trans_id_1 ==1|AHHHHflipped$kbi_y_trans_id_2 ==1|AHHHHflipped$kbi_y_trans_id_3 ==1)
+AHHHHflipped$EverDiverseToT3[is.na(AHHHHflipped$EverDiverseToT3)] <- 0
+
 
 AHHH1 <- AHHHH
 
@@ -359,7 +373,8 @@ AHHHH_suicide$averaged_FluiditytoT3 <-(abs(AHHHH_suicide$Gender_Dissonance_1-AHH
 
 AHHHH_suicide$EverDiverse <- (AHHHH_suicide$kbi_y_trans_id_1 ==1|AHHHH_suicide$kbi_y_trans_id_2 ==1|AHHHH_suicide$kbi_y_trans_id_3 ==1|AHHHH_suicide$kbi_y_trans_id_4 ==1)
 AHHHH_suicide$EverDiverse[is.na(AHHHH_suicide$EverDiverse)] <- 0
-
+AHHHH_suicide$EverDiverseToT3 <- (AHHHH_suicide$kbi_y_trans_id_1 ==1|AHHHH_suicide$kbi_y_trans_id_2 ==1|AHHHH_suicide$kbi_y_trans_id_3 ==1)
+AHHHH_suicide$EverDiverseToT3[is.na(AHHHH_suicide$EverDiverseToT3)] <- 0
 
 Table_for_figure_bargraphs <- historyatotal %>% dplyr::select (kbi_y_trans_id,Gender_Dissonance,eventname,felt_gender_Dissonance, truesex)
 Table_for_figure_bargraphs$eventname[Table_for_figure_bargraphs$eventname == "1_year_follow_up_y_arm_1"] <- "1 year follow up"
@@ -473,4 +488,29 @@ Glep_in_range <- filter(Glep, Gender_Dissonance <=4)
 Glep_in_range <- filter(Glep_in_range, Gender_Dissonance>=-4)
 
 Glep_in_range <- filter(Glep_in_range,src_subject_id != "TRUE")
+Glep_only_one_from_pair <-Glep_in_range
+List_of_include <- list()
+for (family in Glep_in_range$rel_family_id) {
+  
+  family <- as.integer(family)
+  Q <- filter(Glep_in_range, rel_family_id==family)
+  M = unique(Q$rel_birth_id)
+  B = M[[sample(1:length(M), 1)]]
+  C <- filter(Q,rel_birth_id == B)
+  D = unique(C$rel_ingroup_order)
+  E = D[[sample(1:length(D), 1)]]
+  O <- filter(C, rel_ingroup_order==E)
+  Gug <- O$src_subject_id
+  Gug <- unique(Gug)
+  List_of_include <- append(List_of_include,Gug)
+}
+List_of_include <- unique(List_of_include)
 
+AHHHHflipped1 <- filter(AHHHHflipped,src_subject_id %in% List_of_include)
+Glep_only_one_from_pair <- filter(Glep_in_range, src_subject_id %in% List_of_include)
+AHHHH_suicidetwinssibsonlychoseone <- filter(AHHHH_suicide, src_subject_id %in% List_of_include)
+A = M[-B]
+for (X in A){
+  Glep_only_one_from_pair <- filter(Glep_only_one_from_pair,rel_birth_id!=X)
+}
+  

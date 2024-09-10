@@ -24,8 +24,8 @@ library(cowplot)
 library(sjPlot)
 
 
-a<-lm(cbcl_scr_syn_internal_r_4~averaged_Fluidity+EverDiverse+Age_4+truesex_1+race_ethnicity_1, data= AHHHHflipped)
-b<-lm(cbcl_scr_syn_external_r_4~averaged_Fluidity+EverDiverse+Age_4+truesex_1+race_ethnicity_1, data= AHHHHflipped)
+a<-lm(cbcl_scr_syn_internal_r_4~averaged_Fluidity+EverDiverse+Age_4+truesex_1+race_ethnicity_1, data= AHHHHflipped1)
+b<-lm(cbcl_scr_syn_external_r_4~averaged_Fluidity+EverDiverse+Age_4+truesex_1+race_ethnicity_1, data= AHHHHflipped1)
 
 print(summary(b))
 

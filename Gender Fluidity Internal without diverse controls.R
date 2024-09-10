@@ -24,9 +24,9 @@ library(cowplot)
 library(sjPlot)
 
 
-a<-lm(cbcl_scr_syn_internal_r_4~averaged_Fluidity+Age_4+truesex_1+race_ethnicity_1, data= AHHHHflipped)
-b<-lm(cbcl_scr_syn_external_r_4~averaged_Fluidity+Age_4+truesex_1+race_ethnicity_1, data= AHHHHflipped)
+a<-lm(cbcl_scr_syn_internal_r_4~averaged_Fluidity+Age_4+truesex_1+race_ethnicity_1, data= AHHHHflipped1)
+b<-lm(cbcl_scr_syn_external_r_4~averaged_Fluidity+Age_4+truesex_1+race_ethnicity_1, data= AHHHHflipped1)
 
 print(summary(a))
 
-print(tab_model(a,show.stat = TRUE,string.stat = "T-Value", auto.label = FALSE, pred.labels = c("Intercept","Averaged Gender Fluidity", "Ever Gender Diverse", "Age", "Sex", "Race/Ethnicity")))
+print(tab_model(a,show.stat = TRUE,string.stat = "T-Value", auto.label = FALSE, pred.labels = c("Intercept","Averaged Gender Fluidity", "Age", "Sex", "Race/Ethnicity")))

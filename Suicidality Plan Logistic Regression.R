@@ -13,8 +13,8 @@ library(QuantPsyc)
 library(cowplot)
 library(ggsignif) 
 
-Logistic_Regression_suicide_plan <- glm(ever_suicide_plan_4~averaged_Fluidity+EverDiverse+Age_4+truesex_1+race_ethnicity_1, data= AHHHH_suicide,family = binomial(link = "logit"))
+Logistic_Regression_suicide_plan <- glm(ever_suicide_plan_4~averaged_Fluidity+EverDiverse+Age_4+truesex_1+race_ethnicity_1, data= AHHHH_suicidetwinssibsonlychoseone,family = binomial(link = "logit"))
 print(summary(Logistic_Regression_suicide_plan))
-print(summ(Logistic_Regression_suicide_plan))
+
 print(tab_model(Logistic_Regression_suicide_plan,show.stat = TRUE,string.stat = "T-Value", auto.label = FALSE, pred.labels = c("Intercept","Averaged Gender Fluidity", "Ever Gender Diverse", "Age", "Sex", "Race/Ethnicity")))
 print(lm.beta(Logistic_Regression_suicide_plan))

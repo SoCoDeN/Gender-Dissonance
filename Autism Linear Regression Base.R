@@ -24,6 +24,7 @@ library(cowplot)
 library(sjPlot)
 set_theme(base = theme_bw())
 historya1r = historya1
+historya1r <- filter(historya1r, src_subject_id %in% List_of_include)
 historya1r$Gender_Dissonance = historya1r$expressed_gender -historya1r$felt_gender
 historya1r$felt_gender_Dissonance = -1*historya1r$felt_gender_Dissonance 
 historya1r <- filter(historya1r, Gender_Dissonance>=-4)

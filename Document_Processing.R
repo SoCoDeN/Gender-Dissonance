@@ -97,5 +97,5 @@ DF4 <- merge(DF4, NewDFCBCL, by = c("src_subject_id","eventname"),all = TRUE)
 DF4 <- merge(DF4, newDFPeer, by = c("src_subject_id","eventname"),all = TRUE)
 DF4 <- merge(DF4, newDFcyber, by = c("src_subject_id","eventname"),all = TRUE)
 DF4 <- merge(DF4, newDFparentBehavior, by = c("src_subject_id","eventname"),all = TRUE)
-
+DF4 <- merge(DF4, LIAM_abcd_y_lt, by = c("src_subject_id","eventname"),all = TRUE)
 

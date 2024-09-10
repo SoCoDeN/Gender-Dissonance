@@ -25,6 +25,7 @@ library(sjPlot)
 set_theme(base = theme_bw())
 historya1r = historya1
 historya1r$Gender_Dissonance = historya1r$expressed_gender -historya1r$felt_gender
+historya1r <- filter(historya1r, src_subject_id %in% List_of_include)
 historya1r$felt_gender_Dissonance = -1*historya1r$felt_gender_Dissonance 
 historya1r <- filter(historya1r, Gender_Dissonance>=-4)
 historya1r <- filter(historya1r, Gender_Dissonance<= 4)
@@ -37,6 +38,6 @@ print(summary(fitSRS_below0))
 
 print(sjPlot::plot_model(fitSRS_below0,type = "pred",terms = "felt_gender_Dissonance[all]",show.data = FALSE,show.p = TRUE,colors = "#00BFC4", plot.background = "white", ci_level = 0.95))
 print(summ(fitSRS_below0))
-print(tab_model(fitSRS_below0,show.stat = TRUE,string.stat = "T-Value", auto.label = FALSE, pred.labels = c("Intercept","Gender Dissonance","Gender Dissonance Squared", "Age", "Sex", "Race/Ethnicity")))
+print(tab_model(fitSRS_below0,show.stat = TRUE,string.stat = "T-Value", auto.label = FALSE, pred.labels = c("Intercept","Felt Gender Dissonance","Felt Gender Dissonance Squared", "Age", "Sex", "Race/Ethnicity", "Total Problem Score")))
 
 print(lm.beta(fitSRS_below0))

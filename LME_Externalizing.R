@@ -24,7 +24,7 @@ library(cowplot)
 library(sjPlot)
 library(jtools)
 
-martin = lmer(cbcl_scr_syn_external_r~Gender_Dissonance+I(Gender_Dissonance^2)+Age+truesex+race_ethnicity+(1+Gender_Dissonance|src_subject_id), data = Glep_in_range)
+martin = lmer(cbcl_scr_syn_external_r~Gender_Dissonance+I(Gender_Dissonance^2)+Age+truesex+race_ethnicity+(1+Gender_Dissonance|src_subject_id), data = Glep_only_one_from_pair)
 
 summary(martin)
 print(tab_model(martin,show.stat = TRUE,string.stat = "T-Value", auto.label = FALSE, pred.labels = c("Intercept","Gender Dissonance","Gender Dissonance Squared", "Age", "Sex", "Race/Ethnicity")))
