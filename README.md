@@ -1,5 +1,5 @@
 # Gender-Dissonance
-Hello, this repository contains all of the code needed to recreate the analyses and figures used in the paper: "Detecting Dissonance Before Dysphoria". 
+Hello, this repository contains all of the code needed to recreate the analyses and figures used in the paper: "Gender Dissonance: A novel metric linked to mental health across development". 
 **ADDITIONAL DOWNLADS REQUIRED**
 
 To run this code, please download the entire repository, as well as the following additional files from the ABCD dataset, renamed as follows: 
